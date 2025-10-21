@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-/**************************
- *         MEMBER         *
- *************************/
+/************************
+ *         MEMBER        *
+ ***********************/
 
 export const GET_AGENTS = gql`
 	query GetAgents($input: AgentsInquiry!) {
