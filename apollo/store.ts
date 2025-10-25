@@ -23,3 +23,8 @@ export const userVar = makeVar<CustomJwtPayload>({
 	memberWarnings: 0,
 	memberBlocks: 0,
 });
+
+
+//1)react query hooks & useQuery & useMutation. =>98%
+//3)axios =1% picture fetch
+//2)apollo client .ts data fetch

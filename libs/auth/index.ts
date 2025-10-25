@@ -4,7 +4,7 @@ import { userVar } from '../../apollo/store';
 import { CustomJwtPayload } from '../types/customJwtPayload';
 import { sweetMixinErrorAlert } from '../sweetAlert';
 import { LOGIN, SIGN_UP } from '../../apollo/user/mutation';
-
+ //signup login
 export function getJwtToken(): any {
 	if (typeof window !== 'undefined') {
 		return localStorage.getItem('accessToken') ?? '';
