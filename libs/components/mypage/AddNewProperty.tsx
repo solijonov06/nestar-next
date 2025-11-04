@@ -24,21 +24,20 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 	const user = useReactiveVar(userVar);
 
 	/** APOLLO REQUESTS **/
-    const [createProperty] = useMutation(CREATE_PROPERTY);
+	const [createProperty] = useMutation(CREATE_PROPERTY);
 	const [updateProperty] = useMutation(UPDATE_PROPERTY);
 
 	const {
-      loading: getPropertyLoading,
-	  data: getPropertyData,
-	  error: getPropertyError,
-	  refetch: getPropertyRefetch
+		loading: getPropertyLoading,
+		data: getPropertyData,
+		error: getPropertyError,
+		refetch: getPropertyRefetch,
 	} = useQuery(GET_PROPERTY, {
-      fetchPolicy: 'network-only',
-	  variables: {
-		input: router.query.propertyId,
-	  },
+		fetchPolicy: 'network-only',
+		variables: {
+			input: router.query.propertyId,
+		},
 	});
-
 	/** LIFECYCLES **/
 	useEffect(() => {
 		setInsertPropertyData({
@@ -70,7 +69,7 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 			formData.append(
 				'operations',
 				JSON.stringify({
-					query: `mutation ImagesUploader($files: [Upload!]$targ!, et: String!) { 
+					query: `mutation ImagesUploader($files: [Upload!]!, $target: String!) { 
 						imagesUploader(files: $files, target: $target)
 				  }`,
 					variables: {
@@ -132,45 +131,43 @@ const AddProperty = ({ initialValues, ...props }: any) => {
 
 	const insertPropertyHandler = useCallback(async () => {
 		try {
-           const result = await createProperty({
-			variables: {
-				input: insertPropertyData,
-			},
-		   });
-
-		   await sweetMixinSuccessAlert('This property has been created successfully.');
-		   await router.push({
-			pathname: '/mypage',
-			query: {
-				category: 'myProperties',
-			},
-		   });
+			const result = await createProperty({
+				variables: {
+					input: insertPropertyData,
+				},
+			});
+			await sweetMixinSuccessAlert('This property has been created seccesfully.');
+			await router.push({
+				pathname: '/mypage',
+				query: {
+					category: 'myProperties',
+				},
+			});
 		} catch (err: any) {
-          sweetErrorHandling(err).then()
+			sweetErrorHandling(err).then();
 		}
 	}, [insertPropertyData]);
 
 	const updatePropertyHandler = useCallback(async () => {
 		try {
-          // @ts-ignore
-		  insertPropertyData._id = getPropertyData?.getProperty?._id;
-		  const result = await updateProperty({
-			variables: {
-				input: insertPropertyData,
-			},
-		  });
-		  
-		  await sweetMixinSuccessAlert('This property has been updated successfully.');
-		  await router.push({
-			pathname: '/mypage',
-			query: {
-				category: 'myProperties',
-			}
-		  })
+			// @ts-ignore
+			insertPropertyData._id = getPropertyData?.getProperty?._id;
+			const result = await updateProperty({
+				variables: {
+					input: insertPropertyData,
+				},
+			});
+			await sweetMixinSuccessAlert('This property has been updated successfully');
+			await router.push({
+				pathname: '/mypage',
+				query: {
+					category: 'myProperties',
+				},
+			});
 		} catch (err: any) {
-          sweetErrorHandling(err).then()
+			sweetErrorHandling(err).then();
 		}
-	}, [insertPropertyData]); 
+	}, [insertPropertyData]);
 
 	if (user?.memberType !== 'AGENT') {
 		router.back();
