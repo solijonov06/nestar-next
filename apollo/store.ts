@@ -25,6 +25,5 @@ export const userVar = makeVar<CustomJwtPayload>({
 });
 
 
-//1)react query hooks & useQuery & useMutation. =>98%
-//3)axios =1% picture fetch
-//2)apollo client .ts data fetch
+// @ts-ignore
+export const socketVar = makeVar<WebSocket>();
