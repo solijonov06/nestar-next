@@ -10,13 +10,16 @@ import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
 import { useRouter } from 'next/router';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { T } from '../../types/common';
 
 interface PropertyBigCardProps {
 	property: Property;
+	likePropertyHandler?: (user: T, id: string) => void;
 }
 
 const PropertyBigCard = (props: PropertyBigCardProps) => {
 	const { property } = props;
+	const {likePropertyHandler} = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
 	const router = useRouter();
